@@ -7,6 +7,7 @@ import android.serialport.SerialPort;
 import android.util.Log;
 
 
+import com.cyberz.orangepi3g4ggpio.OrangePiGpioControl.DigitalRead;
 import com.cyberz.test.OrangePiGpioControl.DigitalRead;
 import com.cyberz.test.OrangePiGpioControl.GPIO;
 import com.cyberz.test.OrangePiGpioControl.GetValueInterface;
