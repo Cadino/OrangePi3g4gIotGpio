@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cyberz.orangepi3g4ggpio" />
+<manifest package="com.cyberz.orangepi3g4ggpio" />
