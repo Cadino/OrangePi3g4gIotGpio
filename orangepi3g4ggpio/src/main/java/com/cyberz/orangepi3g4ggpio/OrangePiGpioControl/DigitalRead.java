@@ -1,7 +1,8 @@
-package com.cyberz.test.OrangePiGpioControl;
+package com.cyberz.orangepi3g4ggpio.OrangePiGpioControl;
 
 
 import android.util.Log;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

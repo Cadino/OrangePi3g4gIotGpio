@@ -7,10 +7,8 @@ import android.serialport.SerialPort;
 import android.util.Log;
 
 
-import com.cyberz.orangepi3g4ggpio.OrangePiGpioControl.DigitalRead;
-import com.cyberz.test.OrangePiGpioControl.DigitalRead;
-import com.cyberz.test.OrangePiGpioControl.GPIO;
-import com.cyberz.test.OrangePiGpioControl.GetValueInterface;
+import com.cyberz.orangepi3g4ggpio.OrangePiGpioControl.DigitalWrite;
+import com.cyberz.orangepi3g4ggpio.OrangePiGpioControl.GPIO;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*try {
+        try {
            final DigitalWrite digitalWrite = new DigitalWrite();
             digitalWrite.Set(GPIO.GPIO_141_HIGH);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
-
+/*
        DigitalRead digitalRead =new DigitalRead(GPIO.GPIO_141,GPIO.EN, GPIO.PULLDOWN);
         /*digitalRead.getValueTheard(new GetValueInterface() {
             @Override
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
 
-        Log.d("TAG", "onCreate: "+digitalRead.getValue());
+       // Log.d("TAG", "onCreate: "+digitalRead.getValue());
 
 
         /*
