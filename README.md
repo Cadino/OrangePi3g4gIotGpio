@@ -30,10 +30,10 @@ Actions:
     
 How to use:
 
-   // for toogle gpio:
+   for toogle gpio:
    DigitalWrite digitalWrite = new DigitalWrite(); //create a output pin object
    digitalWrite.Set(GPIO.GPIO_141_HIGH); //set HIGH state for GPIOP141 can be GPIO.GPIO_141_HIGH or GPIO.GPIO_141_LOW
    
-   //for read 
+   for read gpio:
     
     
