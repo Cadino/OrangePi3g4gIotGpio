@@ -30,10 +30,14 @@ Actions:
     
 How to use:
 
-               /*To toogle a output gpio*/
-           final DigitalWrite digitalWrite = new DigitalWrite(); //create a gpio output object
-            digitalWrite.Set(GPIO.GPIO_141_HIGH); // set the state of GPIO141 to HIGH
+    /*To toogle a output gpio*/
+     final DigitalWrite digitalWrite = new DigitalWrite(); //create a gpio output object
+     digitalWrite.Set(GPIO.GPIO_141_HIGH); // set the state of GPIO141 to HIGH
+     digitalWrite.Set(GPIO.GPIO_141_LOW); // set the state of GPIO141 to LOW
    
-   for read gpio:
+  
+    /* for read gpio*/
+   
+    DigitalRead digitalRead = new DigitalRead(GPIO.GPIO_24, GPIO.EN, GPIO.PULLDOWN); //create a gpio input; object the must be have the gpio number, the pull enable (GPIO.EN) and the pull (GPIO.PULLDOWN or GPIO.PULLUP)
     
     
