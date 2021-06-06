@@ -20,23 +20,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         try {
-           final DigitalWrite digitalWrite = new DigitalWrite();
-            digitalWrite.Set(GPIO.GPIO_141_HIGH);
+            /*To toogle a output gpio*/
+            final DigitalWrite digitalWrite = new DigitalWrite(); //create a gpio output object
+            digitalWrite.Set(GPIO.GPIO_141_HIGH); // set the state of GPIO141 to HIGH
+            Thread.sleep(1000);
+            digitalWrite.Set(GPIO.GPIO_141_LOW); // set the state of GPIO141 to HIGH
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        DigitalRead digitalRead = new DigitalRead(GPIO.GPIO_24, GPIO.EN, GPIO.PULLDOWN);
+        DigitalRead digitalRead = new DigitalRead(GPIO.GPIO_24, GPIO.EN, GPIO.PULLDOWN); //
         digitalRead.getValueTheard(new GetValueInterface() {
             @Override
             public void runGetValue(int value) {
+                Log.d("TAG", "runGetValue: " + value);
 
             }
         });
 
+        //digitalRead.destroyDigitalRead();
 
-        Log.d("TAG", "onCreate: " + digitalRead.getValue());
+
 
 
 
