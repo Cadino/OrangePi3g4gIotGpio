@@ -16,8 +16,6 @@ public class DigitalRead {
     private String mGpioNum;
     private int mGpioPullEn;
     private int mGpioSel;
-    private GetValueInterface mGetValueInterface;
-    private Service myRunnable;
 
 
     public DigitalRead(@GPIO.GpioNum String gpioNum, @GPIO.GpioPullEn int gpioEn, @GPIO.GpioSel int gpioSel) {
@@ -28,18 +26,6 @@ public class DigitalRead {
 
     }
 
-
-    public void getValueTheard(GetValueInterface getValueInterface) {
-        mGetValueInterface = getValueInterface;
-        myRunnable = new Service();
-        new Thread(myRunnable).start();
-       /* final ExecutorService executor = Executors.newCachedThreadPool();
-        executor.submit(myRunnable);
-        // this line will execute immediately, not waiting for your task to complete
-        executor.shutdown();*/
-
-
-    }
 
     public int getValue() {
         final String readLineADB;
@@ -76,68 +62,7 @@ public class DigitalRead {
 
     }
 
-    public void destroyDigitalRead() {
-        myRunnable.cancel();
-    }
 
-    public class Service implements Runnable {
-        private volatile boolean cancelled;
-
-        public Service() {
-            // mContext=context;
-        }
-
-        @Override
-        public void run() {
-
-
-            while (!isCancelled()) {
-                Log.d(TAG, "run: ");
-                try {
-
-                    final Process su = Runtime.getRuntime().exec("su");
-                    final DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
-                    outputStream.writeBytes("echo \"-wdir " + mGpioNum + " 0\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-                    outputStream.flush();
-                    outputStream.writeBytes("echo \"-wdir " + mGpioNum + " 0\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-                    outputStream.flush();
-                    outputStream.writeBytes("echo \"-wpen " + mGpioNum + " " + mGpioPullEn + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-                    outputStream.flush();
-                    outputStream.writeBytes("echo \"-wpsel " + mGpioNum + " " + mGpioSel + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-                    outputStream.flush();
-                    outputStream.writeBytes("cat /sys/devices/virtual/misc/mtgpio/pin | grep " + mGpioNum + "\n");
-                    DataInputStream dataIn = new DataInputStream(su.getInputStream());
-                    final String readLineADB = dataIn.readLine();
-                    Log.d(TAG, readLineADB);
-                    final String[] resp = readLineADB.split(":");
-                    outputStream.flush();
-                    outputStream.writeBytes("exit\n");
-                    outputStream.flush();
-                    su.waitFor();
-                    Log.d(TAG, "echo \"-wdir " + mGpioNum + " 0\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-                    Log.d(TAG, "echo \"-wpen " + mGpioNum + " " + mGpioPullEn + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-                    Log.d(TAG, "echo \"-wpsel " + mGpioNum + " " + mGpioSel + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-                    Log.d(TAG, "cat /sys/devices/virtual/misc/mtgpio/pin | grep " + mGpioNum + "\n");
-                    mGetValueInterface.runGetValue(Integer.valueOf(resp[1].substring(2, 3)));
-                    Log.d(TAG, "DigitalRead" + resp[1].substring(2, 3));
-                } catch (IOException | InterruptedException e) {
-
-                    e.printStackTrace();
-
-                }
-                //cat /sys/devices/virtual/misc/mtgpio/pin | grep 141
-            }
-        }
-
-
-        public void cancel() {
-            cancelled = true;
-        }
-
-        public boolean isCancelled() {
-            return cancelled;
-        }
-    }
 
 
 }

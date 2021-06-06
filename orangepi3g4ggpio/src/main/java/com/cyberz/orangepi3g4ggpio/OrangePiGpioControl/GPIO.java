@@ -56,7 +56,7 @@ public class GPIO {
     public static final String GPIO_145 = "145";
     public static final String GPIO_89= "89";
     public static final String GPIO_27="27";
-    public static final String GPIO_144= "89";
+    public static final String GPIO_144 = "144";
 
     private String gpioCommand;
 
