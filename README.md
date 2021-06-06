@@ -37,7 +37,8 @@ How to use:
    
   
     /* for read gpio*/
-   
-    DigitalRead digitalRead = new DigitalRead(GPIO.GPIO_24, GPIO.EN, GPIO.PULLDOWN); //create a gpio input; object the must be have the gpio number, the pull enable (GPIO.EN) and the pull (GPIO.PULLDOWN or GPIO.PULLUP)
+    final DigitalRead digitalRead = new DigitalRead(GPIO.GPIO_144, GPIO.EN, GPIO.PULLDOWN); //create a gpio input; object the must be have the gpio number, the pull enable (GPIO.EN) and the pull (GPIO.PULLDOWN or GPIO.PULLUP)
+    digitalRead.getValue() //read the value of GPIO object created ealiry. It is a integer and can be 0 ou 1
+    
     
     
