@@ -11,6 +11,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/app/stepmotor" />
+            <option value="$PROJECT_DIR$/dht11" />
             <option value="$PROJECT_DIR$/orangepi3g4ggpio" />
           </set>
         </option>

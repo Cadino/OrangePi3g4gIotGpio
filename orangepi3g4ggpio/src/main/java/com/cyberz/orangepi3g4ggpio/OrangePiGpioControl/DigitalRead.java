@@ -22,6 +22,25 @@ public class DigitalRead {
         mGpioNum = gpioNum;
         mGpioSel = gpioSel;
         mGpioPullEn = gpioEn;
+        try {
+            final Process su = Runtime.getRuntime().exec("su");
+            final DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
+
+            outputStream.writeBytes("echo \"-wdir " + mGpioNum + " 0\" > /sys/devices/virtual/misc/mtgpio/pin\n");
+            outputStream.flush();
+            outputStream.writeBytes("echo \"-wpen " + mGpioNum + " " + "1" + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
+            outputStream.flush();
+            outputStream.writeBytes("echo \"-wpsel " + mGpioNum + " " + "1" + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
+            outputStream.flush();
+            outputStream.writeBytes("exit\n");
+            outputStream.flush();
+            su.waitFor();
+            Log.d(TAG, "echo \"-wdir " + mGpioNum + " 0\" > /sys/devices/virtual/misc/mtgpio/pin\n");
+            Log.d(TAG, "echo \"-wpen " + mGpioNum + " " + mGpioPullEn + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
+            Log.d(TAG, "echo \"-wpsel " + mGpioNum + " " + mGpioSel + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -33,14 +52,6 @@ public class DigitalRead {
         try {
             final Process su = Runtime.getRuntime().exec("su");
             final DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
-            outputStream.writeBytes("echo \"-wdir " + mGpioNum + " 0\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-            outputStream.flush();
-            outputStream.writeBytes("echo \"-wdir " + mGpioNum + " 0\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-            outputStream.flush();
-            outputStream.writeBytes("echo \"-wpen " + mGpioNum + " " + mGpioPullEn + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-            outputStream.flush();
-            outputStream.writeBytes("echo \"-wpsel " + mGpioNum + " " + mGpioSel + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-            outputStream.flush();
             outputStream.writeBytes("cat /sys/devices/virtual/misc/mtgpio/pin | grep " + mGpioNum + "\n");
             DataInputStream dataIn = new DataInputStream(su.getInputStream());
             readLineADB = dataIn.readLine();
@@ -50,9 +61,6 @@ public class DigitalRead {
             outputStream.writeBytes("exit\n");
             outputStream.flush();
             su.waitFor();
-            Log.d(TAG, "echo \"-wdir " + mGpioNum + " 0\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-            Log.d(TAG, "echo \"-wpen " + mGpioNum + " " + mGpioPullEn + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
-            Log.d(TAG, "echo \"-wpsel " + mGpioNum + " " + mGpioSel + "\" > /sys/devices/virtual/misc/mtgpio/pin\n");
             Log.d(TAG, "cat /sys/devices/virtual/misc/mtgpio/pin | grep " + mGpioNum + "\n");
             Log.d(TAG, "DigitalRead" + resp[1].substring(2, 3));
         } catch (IOException | InterruptedException e) {

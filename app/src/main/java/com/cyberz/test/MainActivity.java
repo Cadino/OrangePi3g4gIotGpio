@@ -1,17 +1,23 @@
 package com.cyberz.test;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.cyberz.orangepi3g4ggpio.OrangePiGpioControl.DigitalRead;
 import com.cyberz.orangepi3g4ggpio.OrangePiGpioControl.DigitalWrite;
 import com.cyberz.orangepi3g4ggpio.OrangePiGpioControl.GPIO;
-import com.cyberz.orangepi3g4ggpio.OrangePiGpioControl.GetValueInterface;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
+    DigitalWrite digitalWrite;
+    Button btn_on;
+    Button btn_off;
+    Object mBlinkSemaphore = new Object();
+
+
 
 
     @Override
@@ -19,33 +25,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            /*To toogle a output gpio*/
-            final DigitalWrite digitalWrite = new DigitalWrite(); //create a gpio output object
-            digitalWrite.Set(GPIO.GPIO_141_HIGH); // set the state of GPIO141 to HIGH
-            Thread.sleep(1000);
-            digitalWrite.Set(GPIO.GPIO_141_LOW); // set the state of GPIO141 to HIGH
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        btn_off = findViewById(R.id.btn_off);
+        btn_on = findViewById(R.id.btn_on);
+        final DigitalRead digitalRead = new DigitalRead(GPIO.GPIO_27, GPIO.EN, GPIO.PULLUP);
+        final DigitalWrite digitalWrite = new DigitalWrite(GPIO.GPIO_141);
 
 
-        DigitalRead digitalRead = new DigitalRead(GPIO.GPIO_24, GPIO.EN, GPIO.PULLDOWN); //
-        digitalRead.getValueTheard(new GetValueInterface() {
+        btn_off.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void runGetValue(int value) {
-                Log.d("TAG", "runGetValue: " + value);
+            public void onClick(View v) {
+
+
+                try {
+                    digitalWrite.Set(GPIO.HIGH);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+        btn_on.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    digitalWrite.Set(GPIO.HIGH);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
         });
 
-        //digitalRead.destroyDigitalRead();
-
-
-
-
-
     }
 
-    
+
 }

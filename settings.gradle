@@ -1,3 +1,5 @@
 rootProject.name='Test'
 include ':app'
 include ':orangepi3g4ggpio'
+include ':dht11'
+include ':app:stepmotor'
